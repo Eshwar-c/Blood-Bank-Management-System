@@ -1,0 +1,373 @@
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+//***************************************************************
+****************************************************************
+***********
+struct data
+{
+char name[20],area[40];
+int age,blood_type;
+long long int mob_num;
+struct data *next;
+}*head=NULL;
+//***************************************************************
+****************************************************************
+***********
+void add();
+void search();
+void delete();
+void generateReport();
+void employee();
+void admin();
+void login();
+//***************************************************************
+****************************************************************
+***********
+void add()
+{
+int a;
+struct data *temp,*new;
+printf(&quot;Enter the number of data to be added\n&quot;);
+scanf(&quot;%d&quot;,&amp;a);
+
+for(int i=0;i&lt;a;i++)
+{
+new=(struct data*)malloc(sizeof(struct data));
+printf(&quot;Enter the name of the donor\n&quot;);
+scanf(&quot;%s&quot;,new-&gt;name);
+printf(&quot;Enter the age of the donor\n&quot;);
+scanf(&quot;%d&quot;,&amp;new-&gt;age);
+printf(&quot;Enter the blood type of the donor\n&quot;);
+scanf(&quot;%d&quot;,&amp;new-&gt;blood_type);
+printf(&quot;Enter the residental area of the donor\n&quot;);
+scanf(&quot;%s&quot;,new-&gt;area);
+printf(&quot;Enter the mobile number of the donor\n&quot;);
+scanf(&quot;%lld&quot;,&amp;new-&gt;mob_num);
+new-&gt;next=NULL;
+if(head==NULL)
+{
+head=new;
+}
+else
+{
+temp=head;
+while(temp-&gt;next!=NULL)
+{
+temp=temp-&gt;next;
+}
+temp-&gt;next=new;
+}
+}
+
+}
+//***************************************************************
+****************************************************************
+***********
+void search()
+{
+int a,b,n,flag=0;
+printf(&quot;Enter the age constrain\nFrom:\n&quot;);
+scanf(&quot;%d&quot;,&amp;a);
+printf(&quot;To:\n&quot;);
+scanf(&quot;%d&quot;,&amp;b);
+printf(&quot;Enter the bloodtype\n&quot;);
+scanf(&quot;%d&quot;,&amp;n);
+
+struct data *temp;
+temp=head;
+while(temp!=NULL)
+{
+if((temp-&gt;age)&gt;=a &amp;&amp; (temp-&gt;age)&lt;=b &amp;&amp; (temp-&gt;blood_type)==n)
+{
+flag=1;
+printf(&quot;NAME:%s\nAGE:%d\nBLOOD
+
+TYPE:%d\nAREA:%s\nMOBILE
+NUMBER:%lld\n**************************************************
+*\n\n&quot;,temp-&gt;name,temp-&gt;age,temp-&gt;blood_type,temp-&gt;area,temp-
+&gt;mob_num);
+temp=temp-&gt;next;
+}
+}
+if(flag==0)
+printf(&quot;NO MATCHED DATA FOUND !!\n\n&quot;);
+}
+//***************************************************************
+****************************************************************
+***********
+void generateReport()
+{
+struct data *temp,*temp1;
+//FILE *fi,*fo;
+//fi=fopen(&quot;export.txt&quot;,&quot;r+&quot;);
+temp=head;
+if(head!=NULL)
+{
+while(temp!=NULL)
+{
+printf(&quot;NAME:%s\nAGE:%d\nBLOOD
+
+TYPE:%d\nAREA:%s\nMOBILE
+NUMBER:%lld\n**************************************************
+*\n\n&quot;,temp-&gt;name,temp-&gt;age,temp-&gt;blood_type,temp-&gt;area,temp-
+&gt;mob_num);
+temp=temp-&gt;next;
+
+//fprintf(fi,&quot;NAME:%s\nAGE:%d\nBLOOD
+
+TYPE:%d\nAREA:%s\nMOBILE
+NUMBER:%lld\n**************************************************
+
+*\n\n&quot;,temp-&gt;name,temp-&gt;age,temp-&gt;blood_type,temp-&gt;area,temp-
+&gt;mob_num);
+temp=temp-&gt;next;
+//fclose(fi);
+}
+}
+else
+printf(&quot;DATABASE EMPTY...CONTACT ADMIN !!\n\n&quot;);
+}
+//***************************************************************
+****************************************************************
+***********
+void employee()
+{
+char eid[20]={&quot;void*employee&quot;};
+char ep[20]={&quot;commonpass&quot;};
+char ed[20],epss[20];
+printf(&quot;ENTER EMPLOYEE COMMON ID:\n&quot;);
+scanf(&quot;%s&quot;,ed);
+printf(&quot;ENTER THE EMPLOYEE PASSSWORD\n&quot;);
+scanf(&quot;%s&quot;,epss);
+if(strcmp(eid,ed)==0 &amp;&amp; strcmp(ep,epss)==0 )
+{
+int choice;
+printf(&quot;\nENTER CHOICE:\n1.SEARCH\n2.GENERATE
+REPORT\n3.LOGOUT\n&quot;);
+scanf(&quot;%d&quot;,&amp;choice);
+switch(choice)
+{
+case 1: search();
+login();
+break;
+case 2: generateReport();
+login();
+break;
+case 3: login();
+break;
+default:printf(&quot;INVALID CHOICE..\nSESSION TIMEOUT..\n&quot;);
+login();
+}
+}
+
+else
+{
+printf(&quot;INVALID CREDENTIALS\nPLEASE TRY AGAIN\n&quot;);
+login();
+}
+}
+//***************************************************************
+****************************************************************
+***********
+void delete()
+{
+int flag=0;
+char a[20];
+struct data *temp,*temp1;
+temp=head;
+printf(&quot;Enter the name to be deleted from the list\n&quot;);
+scanf(&quot;%s&quot;,a);
+while(temp!=NULL)
+{
+if(strcmp(a,temp-&gt;name)==0)
+{
+flag=1;
+while(temp1-&gt;next!=temp)
+{
+temp1=temp1-&gt;next;
+}
+temp1-&gt;next=temp-&gt;next;
+break;
+}
+temp=temp-&gt;next;
+}
+if(flag==0)
+{
+printf(&quot;\nNO DATA MATCHED WITH THE SEARCH\n&quot;);
+}
+}
+//***************************************************************
+****************************************************************
+***********
+
+void admin()
+{
+int flag1=0;
+char aid1[20]={&quot;vignesh&quot;},aid2[20]={&quot;srinidhi&quot;},aid3[20]={&quot;sachin&quot;};
+char
+ap1[20]={&quot;ceasar99525&quot;},ap2[20]={&quot;chummi1998&quot;},ap3[20]={&quot;ringtone&quot;};
+char id[20],pss[20];
+printf(&quot;ENTER YOUR USER NAME:\n&quot;);
+scanf(&quot;%s&quot;,id);
+printf(&quot;ENTER THE PASSSWORD\n&quot;);
+scanf(&quot;%s&quot;,pss);
+if(strcmp(aid1,id)==0 &amp;&amp; strcmp(ap1,pss)==0 )
+flag1=1;
+if(strcmp(aid2,id)==0 &amp;&amp; strcmp(ap2,pss)==0 )
+flag1=1;
+if(strcmp(aid3,id)==0 &amp;&amp; strcmp(ap3,pss)==0 )
+flag1=1;
+if(flag1==1)
+{
+int choice;
+printf(&quot;\nENTER CHOICE:\n1.ADD\n2.SEARCH\n3.GENERATE
+REPORT\n4.DELETE\n5.LOGOUT\n&quot;);
+scanf(&quot;%d&quot;,&amp;choice);
+switch(choice)
+{
+case 1: add();
+login();
+break;
+case 2: search();
+login();
+break;
+case 3: generateReport();
+login();
+break;
+case 4: delete();
+login();
+break;
+case 5: login();
+break;
+default:printf(&quot;INVALID CHOICE..\nSESSION TIMEOUT..\n&quot;);
+login();
+}
+
+}
+else
+{
+printf(&quot;INVALID CREDENTIALS\nPLEASE TRY AGAIN\n&quot;);
+login();
+}
+}
+//***************************************************************
+****************************************************************
+***********
+void newDonor()
+{
+int n1,n2,n3;
+char t[10];
+printf(&quot;\nENTER YOUR NAME\n&quot;);
+scanf(&quot;%s&quot;,t);
+printf(&quot;\nYOUR TOKEN NUMBER IS 32\n&quot;);
+printf(&quot;\nYOU ARE EXPECTED TO REPORT AT THE TESTING LAB025
+AT 2:25PM\n&quot;);
+printf(&quot;\nHAVE YOU CLEARED THE TEST FOR BLOOD PLATELETS
+COUNT\n&quot;);
+printf(&quot;\nENTER 1 FOR YES AND 0 FOR A NO\n&quot;);
+scanf(&quot;%d&quot;,&amp;n1);
+printf(&quot;\nHAVE YOU CLEARED THE TEST FOR BLOOD PLATELETS
+COUNT\n&quot;);
+printf(&quot;\nENTER 1 FOR YES AND 0 FOR A NO\n&quot;);
+scanf(&quot;%d&quot;,&amp;n2);
+printf(&quot;\nHAVE YOU CLEARED THE TEST FOR BLOOD PLATELETS
+COUNT\n&quot;);
+printf(&quot;\nENTER 1 FOR YES AND 0 FOR A NO\n&quot;);
+scanf(&quot;%d&quot;,&amp;n3);
+if((n1==1)&amp;&amp;(n2==1)&amp;&amp;(n3==1))
+{
+int flag1=0;
+char aid1[20]={&quot;vignesh&quot;},aid2[20]={&quot;srinidhi&quot;},aid3[20]={&quot;sachin&quot;};
+char
+ap1[20]={&quot;ceasar99525&quot;},ap2[20]={&quot;chummi1998&quot;},ap3[20]={&quot;ringtone&quot;};
+char id[20],pss[20];
+printf(&quot;ENTER ADMIN USER NAME:\n&quot;);
+scanf(&quot;%s&quot;,id);
+printf(&quot;ENTER ADMIN PASSSWORD\n&quot;);
+
+scanf(&quot;%s&quot;,pss);
+if(strcmp(aid1,id)==0 &amp;&amp; strcmp(ap1,pss)==0 )
+flag1=1;
+if(strcmp(aid2,id)==0 &amp;&amp; strcmp(ap2,pss)==0 )
+flag1=1;
+if(strcmp(aid3,id)==0 &amp;&amp; strcmp(ap3,pss)==0 )
+flag1=1;
+if(flag1==1)
+{
+int a;
+struct data *temp,*new;
+new=(struct data*)malloc(sizeof(struct data));
+printf(&quot;Enter the name of the new donor\n&quot;);
+scanf(&quot;%s&quot;,new-&gt;name);
+printf(&quot;Enter the age of the new donor\n&quot;);
+scanf(&quot;%d&quot;,&amp;new-&gt;age);
+printf(&quot;Enter the blood type of the new donor\n&quot;);
+scanf(&quot;%d&quot;,&amp;new-&gt;blood_type);
+printf(&quot;Enter the residental area of the new donor\n&quot;);
+scanf(&quot;%s&quot;,new-&gt;area);
+printf(&quot;Enter the mobile number of the new donor\n&quot;);
+scanf(&quot;%lld&quot;,&amp;new-&gt;mob_num);
+new-&gt;next=NULL;
+if(head==NULL)
+{
+head=new;
+}
+else
+{
+temp=head;
+while(temp-&gt;next!=NULL)
+{
+temp=temp-&gt;next;
+}
+temp-&gt;next=new;
+}
+printf(&quot;\nCONGRATULATIONS ! !\n\nYOU HAVE CLEARED
+
+ALL YOUR TESTS ! !\n\nYOU ARE NOW A DONOR\n\n&quot;);
+}
+else
+printf(&quot;INVALID CREDENTIALS !!\nADMIN PERMISSION
+
+REQUIRED TO ADD NEW DONOR!\n&quot;);
+
+login();}
+else
+printf(&quot;SORRY !!\n\nYOU CANNOT BECOME A DONOR UNLESS YOU
+CLEAR ALL THE TESTS\n&quot;);
+login();
+}
+//***************************************************************
+****************************************************************
+***********
+void login()
+{
+int choice;
+printf(&quot;\nENTER CHOICE:\n1.ADMIN\n2.EMPLOYEE\n3.NEW DONOR
+REGISTRATION\n&quot;);
+scanf(&quot;%d&quot;,&amp;choice);
+switch(choice)
+{
+case 1: admin();
+break;
+case 2: employee();
+break;
+case 3: newDonor();
+break;
+default:printf(&quot;INVALID CREDENTIALS\nPLEASE TRY AGAIN\n&quot;);
+login();
+break;
+}
+}
+//***************************************************************
+****************************************************************
+***********
+
+int main()
+{
+login();
+return 0;
+}
+
+//***************************************************************
+*****************************
